@@ -1,6 +1,43 @@
 import LinkNewTab from "./LinkNewTab";
+import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function LinkIcons({ className = "" }: { className?: string }) {
+
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = () => {
+    if (copied) return; // Prevent multiple clicks while copying
+    setCopied(true);
+    navigator.clipboard.writeText("tom@tomwright.io");
+    setTimeout(() => setCopied(false), 1000);
+
+    toast("Email address tom@tomwright.io copied to clipboard!");
+  }
+
+  const default_icon = (
+    <svg
+      className="h-5 w-5 hover:text-primarylight md:h-6 md:w-6 cursor-pointer"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      onClick={copyEmail}
+    >
+      <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"></path>
+    </svg>
+  );
+
+  const copiedIcon = (
+    <svg
+      className="h-5 w-5 text-green-500 md:h-6 md:w-6"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M11.707,15.707C11.512,15.902,11.256,16,11,16s-0.512-0.098-0.707-0.293l-4-4c-0.391-0.391-0.391-1.023,0-1.414 s1.023-0.391,1.414,0L11,13.586l8.35-8.35C17.523,3.251,14.911,2,12,2C6.477,2,2,6.477,2,12c0,5.523,4.477,10,10,10s10-4.477,10-10 c0-1.885-0.531-3.642-1.438-5.148L11.707,15.707z" />
+    </svg>
+  )
+
   return (
     <>
       <div className={`${className} flex space-x-4 justify-start`}>
@@ -31,17 +68,9 @@ export default function LinkIcons({ className = "" }: { className?: string }) {
           </LinkNewTab>
         </div>
         <div>
-          <LinkNewTab
-            href="mailto:tom@tomwright.io"
-          >
-            <svg
-              className="h-5 w-5 hover:text-primarylight md:h-6 md:w-6"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"></path>
-            </svg>
-          </LinkNewTab>
+          <div>
+            {copied ? copiedIcon : default_icon}
+          </div>
         </div>
         <div>
           <LinkNewTab
@@ -58,6 +87,8 @@ export default function LinkIcons({ className = "" }: { className?: string }) {
           </LinkNewTab>
         </div>
       </div>
+
+      <ToastContainer />
     </>
   );
 }
