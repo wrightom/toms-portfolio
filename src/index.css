@@ -25,16 +25,50 @@ h1 {
 @tailwind utilities;
 
 @layer utilities {
-  .decoration-blue {
-    text-decoration-color: var(--theme-blue);
-  }
-  .text-primarylight {
-    color: var(--theme-blue);
-  }
-  .hover\:text-primarylight:hover {
-    color: var(--theme-blue);
-  }
-  .text-gray {
-    color: var(--theme-gray);
-  }
+    .decoration-blue {
+        text-decoration-color: var(--theme-blue);
+    }
+
+    .text-primarylight {
+        color: var(--theme-blue);
+    }
+
+    .hover\:text-primarylight:hover {
+        color: var(--theme-blue);
+    }
+
+    .text-gray {
+        color: var(--theme-gray);
+    }
 }
+
+
+
+
+.title {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    z-index: 2;
+}
+/* 
+.title::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translate(0, 0);
+} */
+
+.title:hover {
+    color: var(--theme-blue);
+    transform: translate(-6px, -6px);
+    text-shadow: 6px 6px 0px var(--theme-gray);
+}
+
+/* .title:hover::before {
+    opacity: 1;
+    transform: translate(50px, 50px);
+} */

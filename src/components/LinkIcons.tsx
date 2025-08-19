@@ -1,9 +1,9 @@
 import LinkNewTab from "./LinkNewTab";
 
-export default function LinkIcons() {
+export default function LinkIcons({className = ""}: {className?: string}) {
   return (
     <>
-      <div className="flex space-x-4 justify-start">
+      <div className={`${className} flex space-x-4 justify-start`}>
         <div>
           <LinkNewTab
             href="https://www.linkedin.com/in/tomnw/"
