@@ -58,8 +58,7 @@ function App() {
           edge techniques to solve problems.{" "}
         </p>
         <p>
-          I'm an alumni of the University of Birmingham, having graduated in
-          2023 with a First-Class BSc Mathematics and an overall score of 81%.
+          In 2023, I graduated from the University of Birmingham with a First-Class BSc Mathematics and an overall score of 81%.
           The companies I have worked for include
           {" "}<LinkNewTab href="https://fiecon.com">FIECON</LinkNewTab>,
           {" "}<LinkNewTab href="https://ample.earth">Ample</LinkNewTab>, and
