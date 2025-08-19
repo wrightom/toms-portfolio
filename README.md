@@ -1,6 +1,6 @@
 # Portfolio site
 
-![Screenshot of portfolio site](docs/screenshot.png)
+![Screenshot of portfolio site](docs/site_screenshot.png)
 
 ## Todo
 
