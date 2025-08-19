@@ -65,7 +65,7 @@ h1 {
 .title:hover {
     color: var(--theme-blue);
     transform: translate(-6px, -6px);
-    text-shadow: 6px 6px 0px var(--theme-gray);
+    text-shadow: 6px 6px 0px rgb(0,0,0,0.2);
 }
 
 /* .title:hover::before {
