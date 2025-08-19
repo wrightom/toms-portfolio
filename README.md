@@ -1,69 +1,35 @@
-# React + TypeScript + Vite
+# Portfolio site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Screenshot of portfolio site](docs/screenshot.png)
 
-Currently, two official plugins are available:
+## Todo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Core functionality**
 
-## Expanding the ESLint configuration
+- [ ] Top three projects filled in
+- [ ] Simple project titles and descriptions
+- [ ] Links visible, with arrow
+- [ ] Hide descriptions until hover
+- [ ] Full curated project content
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Notion**
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+*Use Notion as the backend for projects.*
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- [ ] Create PHP backend endpoint
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Dual page layout**
+
+*Idea: scroll down (snaps when between two) to move from intro to project list*
+
+
+**Text animation**
+
+*Idea: text wave animation based on visual similarity*
+
+``` plaintext
+j ! i ; : . : = ~ - = : i l I 1 | ) ( [ ] } { < ^ ` ' . _ , ' " * ^ > \ / ? % $ & @ 0 O D C G Q 8 B 3 E e 5 S s 2 Z z 7 T Y V y v U u W w M m N n H h K k A 4 a X + x c o d P B R F f r t L J 8 g q p b 6 9 j
 ```
