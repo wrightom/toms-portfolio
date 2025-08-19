@@ -1,4 +1,3 @@
-import cvIcon from "../assets/cv.svg";
 import LinkNewTab from "./LinkNewTab";
 
 export default function LinkIcons({ className = "" }: { className?: string }) {
