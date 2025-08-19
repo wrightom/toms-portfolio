@@ -4,48 +4,48 @@ import "./App.css";
 
 
 
-function Project({
-  name,
-  link,
-  descr
-}: {
-  name: string;
-  link: string;
-  descr: string
-}) {
-  return (
-    <a href={link} target="_blank" rel="noopener noreferrer">
-      <div className="project group rounded-lg border border-neutral-800 p-3">
-        <h3>{name}</h3>
-        <p>{descr}</p>
-      </div>c
-    </a>
-  );
-}
+// function Project({
+//   name,
+//   link,
+//   descr
+// }: {
+//   name: string;
+//   link: string;
+//   descr: string
+// }) {
+//   return (
+//     <a href={link} target="_blank" rel="noopener noreferrer">
+//       <div className="project group rounded-lg border border-neutral-800 p-3">
+//         <h3>{name}</h3>
+//         <p>{descr}</p>
+//       </div>c
+//     </a>
+//   );
+// }
 
 function App() {
-  const projects = [
-    {
-      name: "Test project",
-      link: "https://example.com/test-project",
-      descr: "This is a test project.",
-    },
-    {
-      name: "Test project",
-      link: "https://example.com/test-project",
-      descr: "This is a test project.",
-    },
-    {
-      name: "Test project",
-      link: "https://example.com/test-project",
-      descr: "This is a test project.",
-    },
-    {
-      name: "Test project",
-      link: "https://example.com/test-project",
-      descr: "This is a test project.",
-    },
-  ];
+  // const projects = [
+  //   {
+  //     name: "Test project",
+  //     link: "https://example.com/test-project",
+  //     descr: "This is a test project.",
+  //   },
+  //   {
+  //     name: "Test project",
+  //     link: "https://example.com/test-project",
+  //     descr: "This is a test project.",
+  //   },
+  //   {
+  //     name: "Test project",
+  //     link: "https://example.com/test-project",
+  //     descr: "This is a test project.",
+  //   },
+  //   {
+  //     name: "Test project",
+  //     link: "https://example.com/test-project",
+  //     descr: "This is a test project.",
+  //   },
+  // ];
 
   return (
     // Tailwind: centers the container horizontally (mx-auto), sets different maximum widths for various screen sizes (max-w-2xl, sm:max-w-3xl, md:max-w-4xl), and adds top and bottom padding that increases on medium screens (pt-28 pb-20 md:pt-32)
