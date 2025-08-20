@@ -19,7 +19,7 @@ export default function LinkIcons({ className = "" }: { className?: string }) {
 
   const default_icon = (
     <svg
-      className="h-5 w-5 hover:text-primarylight md:h-6 md:w-6 cursor-pointer"
+      className="h-5 w-5 text-gray hover:text-primarylight md:h-6 md:w-6 cursor-pointer"
       viewBox="0 0 24 24"
       fill="currentColor"
       onClick={copyEmail}
@@ -30,12 +30,15 @@ export default function LinkIcons({ className = "" }: { className?: string }) {
 
   const copiedIcon = (
     <svg
-      className="h-5 w-5 text-green-500 md:h-6 md:w-6"
-      viewBox="0 0 24 24"
-      fill="currentColor"
+      className="h-5 w-5 text-green-600 md:h-6 md:w-6"
+      viewBox="0 0 168 168"
+      stroke="currentColor"
+      fill="none"
     >
-      <path d="M11.707,15.707C11.512,15.902,11.256,16,11,16s-0.512-0.098-0.707-0.293l-4-4c-0.391-0.391-0.391-1.023,0-1.414 s1.023-0.391,1.414,0L11,13.586l8.35-8.35C17.523,3.251,14.911,2,12,2C6.477,2,2,6.477,2,12c0,5.523,4.477,10,10,10s10-4.477,10-10 c0-1.885-0.531-3.642-1.438-5.148L11.707,15.707z" />
+      <circle cx="83.9266" cy="84.1108" r="79.1355" stroke-width="10" />
+      <path d="M44.106 88.5741L71.1491 115.617L134.162 52.6042" stroke-width="10" />
     </svg>
+
   )
 
   return (
