@@ -9,6 +9,12 @@ h1 {
 }
 
 
+h2 {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--theme-gray);
+}
+
 
 :root {
     --theme-gray: rgb(70, 70, 70);

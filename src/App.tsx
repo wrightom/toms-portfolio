@@ -1,7 +1,7 @@
 import LinkNewTab from "./components/LinkNewTab";
 import LinkIcons from "./components/LinkIcons";
 import "./App.css";
-
+import { projects} from "./projects";
 
 
 // function Project({
@@ -24,28 +24,7 @@ import "./App.css";
 // }
 
 function App() {
-  // const projects = [
-  //   {
-  //     name: "Test project",
-  //     link: "https://example.com/test-project",
-  //     descr: "This is a test project.",
-  //   },
-  //   {
-  //     name: "Test project",
-  //     link: "https://example.com/test-project",
-  //     descr: "This is a test project.",
-  //   },
-  //   {
-  //     name: "Test project",
-  //     link: "https://example.com/test-project",
-  //     descr: "This is a test project.",
-  //   },
-  //   {
-  //     name: "Test project",
-  //     link: "https://example.com/test-project",
-  //     descr: "This is a test project.",
-  //   },
-  // ];
+  console.log(projects);
 
   return (
     // Tailwind: centers the container horizontally (mx-auto), sets different maximum widths for various screen sizes (max-w-2xl, sm:max-w-3xl, md:max-w-4xl), and adds top and bottom padding that increases on medium screens (pt-28 pb-20 md:pt-32)
@@ -66,21 +45,18 @@ function App() {
         </p>
       </div>
       <LinkIcons className="mt-3" />
-      {/* 
-      <h2>Projects</h2>
-      <div
-        id="projects"
-        className=""
-      >
+
+      <p className="projects-title mt-20">Check out some of the things I've been up to.</p>
+
+      <div className="projects-container flex flex-col gap-0 mt-5">
         {projects.map((project, index) => (
-          <Project
-            key={index}
-            name={project.name}
-            link={project.link}
-            descr={project.descr}
-          />
+          <a href={project.link} target="_blank" rel="noopener noreferrer" key={index}>
+            <h2 className="title smooth">{project.name}</h2>
+          </a>
         ))}
-      </div> */}
+      </div>
+
+
     </div>
   );
 }
