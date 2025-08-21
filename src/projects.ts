@@ -1,4 +1,4 @@
-type Project = {
+export type ProjectData = {
   name: string;
   link: string;
   linkDescr?: string; // Optional description for the link
@@ -6,7 +6,7 @@ type Project = {
   tags?: string[]; // Optional tags for the project
 };
 
-export const projects: Project[] = [
+export const projects: ProjectData[] = [
   {
     name: "FIECON Powerups",
     link: "https://www.linkedin.com/posts/tomnw_at-fiecon-were-using-technology-to-enhance-activity-7336734483787759616-WY3E?utm_source=share&utm_medium=member_desktop&rcm=ACoAABjc42YBPiUfkzVSPG36c0JHKBDtbn-Rj94",

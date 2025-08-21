@@ -1,7 +1,8 @@
 import LinkNewTab from "./components/LinkNewTab";
 import LinkIcons from "./components/LinkIcons";
 import "./App.css";
-import { projects} from "./projects";
+import { projects } from "./projects.ts";
+import type { ProjectData } from "./projects.ts";
 
 
 // function Project({
@@ -49,7 +50,7 @@ function App() {
       <p className="projects-title mt-20">Check out some of the things I've been up to.</p>
 
       <div className="projects-container flex flex-col gap-0 mt-5">
-        {projects.map((project, index) => (
+        {projects.map((project: ProjectData, index: number) => (
           <a href={project.link} target="_blank" rel="noopener noreferrer" key={index}>
             <h2 className="title smooth">{project.name}</h2>
           </a>
