@@ -3,26 +3,25 @@ import LinkIcons from "./components/LinkIcons";
 import "./App.css";
 import { projects } from "./projects.ts";
 import type { ProjectData } from "./projects.ts";
+import { useState } from "react";
+
+function Project({ project }: { project: ProjectData }) {
+
+  const [open, setOpen] = useState(false);
+
+  const onEnter = () => { setOpen(true); console.log("OPEN!") };
+  const onLeave = () => { setOpen(false); console.log("quit") }
 
 
-// function Project({
-//   name,
-//   link,
-//   descr
-// }: {
-//   name: string;
-//   link: string;
-//   descr: string
-// }) {
-//   return (
-//     <a href={link} target="_blank" rel="noopener noreferrer">
-//       <div className="project group rounded-lg border border-neutral-800 p-3">
-//         <h3>{name}</h3>
-//         <p>{descr}</p>
-//       </div>c
-//     </a>
-//   );
-// }
+
+  return (<a onMouseEnter={onEnter} onMouseLeave={onLeave} href={project.link} target="_blank" rel="noopener noreferrer">
+    <h2 className="title smooth">{project.name}</h2>
+    <p className={open ? "": "hidden"}>{project.descr}</p>
+  </a>)
+}
+
+
+
 
 function App() {
   console.log(projects);
@@ -51,13 +50,11 @@ function App() {
 
       <div className="projects-container flex flex-col gap-0 mt-5">
         {projects.map((project: ProjectData, index: number) => (
-          <a href={project.link} target="_blank" rel="noopener noreferrer" key={index}>
-            <h2 className="title smooth">{project.name}</h2>
-          </a>
+          <Project project={project} key={index} />
         ))}
       </div>
 
-
+      <div className="mt-10"></div>
     </div>
   );
 }

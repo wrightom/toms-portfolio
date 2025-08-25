@@ -8,6 +8,7 @@
 - [ ] Links visible, with arrow
 - [ ] Hide descriptions until hover
 - [ ] Full curated project content
+- [ ] Anumation plays all the way to the end before reversing
 
 
 **Notion**
