@@ -62,7 +62,11 @@ h2 {
     will-change:transform;
 }
 
-.title.active {
+.active {
+    z-index:20;
+}
+
+.active .title {
     color: var(--theme-blue);
     transform: translate(-6px, -6px);
     text-shadow: 10px 10px 0px rgb(0, 0, 0, 0.1);

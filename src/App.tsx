@@ -42,23 +42,23 @@ function Project({ project }: { project: ProjectData }) {
 
   // const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
-  const [activating, _setActivating] = useState(false);
+  const [activating, setActivating] = useState(false);
 
-  // Ref to store the timeout ID so we can clear it if needed
-  const transitionDuration = 400;
-  const timeoutRef = useRef<number | null>(null);
+  const activationDuration = 400;
+  const activationTimeout = useRef<number | null>(null);
   const activate = () => {
-    _setActivating(true);
+    setActivating(true);
 
     // clear existing timeout if any
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+    if (activationTimeout.current) {
+      clearTimeout(activationTimeout.current);
     }
 
     // set new timeout to remove activating state
-    timeoutRef.current = setTimeout(() => {
-      _setActivating(false);
-    }, transitionDuration); // 300ms - adjust to match your CSS transition
+    activationTimeout.current = setTimeout(() => {
+      // stop activating (not the same as starting deactivating)
+      setActivating(false);
+    }, activationDuration); // 300ms - adjust to match your CSS transition
   }
 
   const handleMouseEnter = () => { setActive(true); activate(); };
@@ -69,16 +69,26 @@ function Project({ project }: { project: ProjectData }) {
 
   return (
 
-    <a href={project.link} target="_blank" rel="noopener noreferrer" className={`title-container relative`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} >
+    <a href={project.link} target="_blank" rel="noopener noreferrer" className={cl("group title-container relative",
+    ) + (active || activating ? " active" : "")}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <h2
-        className={"title smooth" + (active || activating ? " active" : "")}>{project.name}</h2>
+        className={"title smooth"}>{project.name}<div className={"absolute inset-1 -z-1 bg-gray-100/40 rounded-md transition-all delay-0 group-hover:delay-300 duration-700 "+(active ? "opacity-0" : "opacity-100")}></div></h2>
       <div className={cl(
+        "overflow-hidden",
         active ? 'max-h-[250px]' : 'max-h-0',
         active ? "opacity-100" : "opacity-0",
-        "transition-all delay-200 duration-700",
+        "transition-all delay-0 group-hover:delay-300 duration-700",
       )}>
         <p>{project.descr}</p>
       </div>
+      <div className={cl(
+        "absolute -inset-5 -z-5",
+        "bg-white/80 backdrop-blur-[2px]",
+        active ? "ring-black/5 shadow-sm" : "ring-transparent",
+        active ? "opacity-100" : "opacity-0",
+        "ring-1 rounded-xl",
+        "transition-all delay-0 group-hover:delay-300 duration-700",
+      )}></div>
 
     </a >)
 }
