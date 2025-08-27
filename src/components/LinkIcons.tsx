@@ -59,7 +59,7 @@ export default function LinkIcons({ className = "" }: { className?: string }) {
         </div>
         <div>
           <LinkNewTab
-            href="https://github.com/tomnwright"
+            href="https://github.com/wrightom"
           >
             <svg
               className="h-5 w-5 hover:text-primarylight md:h-6 md:w-6"
