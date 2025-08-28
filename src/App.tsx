@@ -3,7 +3,8 @@ import LinkIcons from "./components/LinkIcons";
 import "./App.css";
 import { projects } from "./projects.ts";
 import type { ProjectData } from "./projects.ts";
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { isMobile } from 'react-device-detect';
 
 
 const cat = (...classes: string[]) => classes.join(" ");
@@ -47,11 +48,12 @@ function Tag({ name }: { name: string }) {
 
 function Project({ project }: { project: ProjectData }) {
 
-  
+
   // const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
   const [activating, setActivating] = useState(false);
 
+  // desktop interactions
   const activationDuration = 400;
   const activationTimeout = useRef<number | null>(null);
   const activate = () => {
@@ -69,19 +71,56 @@ function Project({ project }: { project: ProjectData }) {
     }, activationDuration); // 300ms - adjust to match your CSS transition
   }
 
-  const handleMouseEnter = () => { setActive(true); activate(); };
+  const handleMouseEnter = () => { if (isMobile) return; setActive(true); activate(); };
   const handleMouseLeave = () => {
-    // activating => do nothing, wait for animation to finish
+    if (isMobile) return;
     setActive(false);
   };
+  
+  
+  // mobile interactions
+
+  // ref to self
+  const selfRef = useRef<HTMLAnchorElement>(null);
+
+  // mobile interaction: tap to activate, tap again to open link
+  const handleMobileClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isMobile) return;
+
+    if (!active) {
+      // prevent link from opening
+      event.preventDefault();
+      // expand project
+      setActive(true);
+    }
+
+  }
+  // close project when user clicks elsewhere in document
+  useEffect(() => {
+    // check mobile and active
+    if (!isMobile || !active) return;
+
+    // close on click (not run if self click - blocked by onclick)
+    const handleClose = (event: MouseEvent | TouchEvent) => {
+
+      // prevent self click from deactivating (in useEffect)
+      const isSelf = selfRef.current && selfRef.current.contains(event.target as Node);
+      if (!isSelf) setActive(false);
+    };
+    document.addEventListener("click", handleClose);
+
+    // cleanup
+    return () => document.removeEventListener("click", handleClose);
+
+  }, [active])
 
   return (
 
-    <a href={project.link} target="_blank" rel="noopener noreferrer" className={cat("group title-container relative",
-    ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <a ref={selfRef} href={""} target="_blank" rel="noopener noreferrer" className={cat("group title-container relative",
+    ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleMobileClick}>
       <div className="flex gap-5 items-center">
         <h2 className={"title smooth"}>{project.name}</h2>
-        <div className="text-primarylight"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="h-6 w-6 opacity-0 transition-all delay-150 duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-100"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
+        <div className="text-primarylight"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-150 duration-200 ${active ? "translate-x-1 -translate-y-1 opacity-100" : "opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
       </div>
       {/* <div className={"absolute inset-1 -z-1 bg-gray-100/40 rounded-md transition-all delay-0 group-hover:delay-300 duration-700 " + (active ? "opacity-0" : "opacity-100")}></div> */}
 
