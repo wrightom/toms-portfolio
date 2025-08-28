@@ -116,7 +116,7 @@ function Project({ project }: { project: ProjectData }) {
 
   return (
 
-    <a ref={selfRef} href={""} target="_blank" rel="noopener noreferrer" className={cat("group title-container relative",
+    <a ref={selfRef} href={project.link} target="_blank" rel="noopener noreferrer" className={cat("group title-container relative",
     ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleMobileClick}>
       <div className="flex gap-5 items-center">
         <h2 className={"title smooth"}>{project.name}</h2>
