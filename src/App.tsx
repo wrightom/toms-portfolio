@@ -84,7 +84,7 @@ function Project({ project }: { project: ProjectData }) {
 
     const pointerType = (event.nativeEvent as PointerEvent).pointerType || "";
 
-    if (pointerType !== "mouse" || !active) {
+    if (pointerType !== "mouse" && !active) {
       // prevent link from opening
       event.preventDefault();
       // expand project
