@@ -46,6 +46,15 @@ function Tag({ name }: { name: string }) {
 }
 
 
+// Idea: generic activating link component
+// function ActivatingLink({ children }: { children: React.ReactNode }) {
+//   const [active, setActive] = useState(false);
+//   const [activating, setActivating] = useState(false);
+
+
+// }
+
+
 function Project({ project }: { project: ProjectData }) {
 
 
@@ -73,24 +82,37 @@ function Project({ project }: { project: ProjectData }) {
 
   const handleMouseEnter = () => { setActive(true); activate(); };
   const handleMouseLeave = () => setActive(false);
-  
-  
+
+
   // touch interactions
 
   // ref to self
   const selfRef = useRef<HTMLAnchorElement>(null);
-  // touch interaction: tap to activate, tap again to open link
-  const handleMobileClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
 
-    const pointerType = (event.nativeEvent as PointerEvent).pointerType || "";
+  const handleTouch = (event: React.PointerEvent<HTMLAnchorElement>) => {
+    const pointerType = event.pointerType || (event.nativeEvent as PointerEvent).pointerType || "";
+    console.log(pointerType, active);
+
 
     if (pointerType !== "mouse" && !active) {
       // prevent link from opening
       event.preventDefault();
-      // expand project
-      setActive(true);
+      // expand project, but only in onclick. Otherwise race condition, second trigger will open link
+      if (event.type === "onclick") setActive(true);
     }
   }
+  // // touch interaction: tap to activate, tap again to open link
+  // const handleMobileClick = (event: React.PointerEvent<HTMLAnchorElement>) => {
+
+  //   const pointerType = (event.nativeEvent as PointerEvent).pointerType || "";
+
+  //   if (pointerType !== "mouse" && !active) {
+  //     // prevent link from opening
+  //     event.preventDefault();
+  //     // expand project
+  //     setActive(true);
+  //   }
+  // }
 
   // // close project when user clicks elsewhere in document
   useEffect(() => {
@@ -114,7 +136,7 @@ function Project({ project }: { project: ProjectData }) {
   return (
 
     <a ref={selfRef} href={project.link} target="_blank" rel="noopener noreferrer" className={cat("group title-container relative",
-    ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleMobileClick}>
+    ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleTouch} onPointerDown={handleTouch}>
       <div className="flex gap-5 items-center">
         <h2 className={"title smooth"}>{project.name}</h2>
         <div className="text-primarylight"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-150 duration-200 ${active ? "translate-x-1 -translate-y-1 opacity-100" : "opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
