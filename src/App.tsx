@@ -4,7 +4,7 @@ import "./App.css";
 import { projects } from "./projects.ts";
 import type { ProjectData } from "./projects.ts";
 import React, { useState, useRef, useEffect } from "react";
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 
 
 const cat = (...classes: string[]) => classes.join(" ");
@@ -71,34 +71,31 @@ function Project({ project }: { project: ProjectData }) {
     }, activationDuration); // 300ms - adjust to match your CSS transition
   }
 
-  const handleMouseEnter = () => { if (isMobile) return; setActive(true); activate(); };
-  const handleMouseLeave = () => {
-    if (isMobile) return;
-    setActive(false);
-  };
+  const handleMouseEnter = () => { setActive(true); activate(); };
+  const handleMouseLeave = () => setActive(false);
   
   
-  // mobile interactions
+  // touch interactions
 
   // ref to self
   const selfRef = useRef<HTMLAnchorElement>(null);
-
-  // mobile interaction: tap to activate, tap again to open link
+  // touch interaction: tap to activate, tap again to open link
   const handleMobileClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isMobile) return;
 
-    if (!active) {
+    const pointerType = (event.nativeEvent as PointerEvent).pointerType || "";
+
+    if (pointerType !== "mouse" || !active) {
       // prevent link from opening
       event.preventDefault();
       // expand project
       setActive(true);
     }
-
   }
-  // close project when user clicks elsewhere in document
+
+  // // close project when user clicks elsewhere in document
   useEffect(() => {
     // check mobile and active
-    if (!isMobile || !active) return;
+    if (!active) return;
 
     // close on click (not run if self click - blocked by onclick)
     const handleClose = (event: MouseEvent | TouchEvent) => {
@@ -160,7 +157,7 @@ function App() {
     <div className="content mx-auto max-w-2xl pt-28 pb-20 sm:max-w-3xl md:max-w-4xl md:pt-32 px-6 flex flex-col gap-3">
       <a href="https://tomwright.io"><h1 className="title smooth hover-active"><div className="absolute -inset-5"></div>Tom Wright</h1></a>
       <div className="space-y-2">
-        <p>Hi, I'm Tom. Welcome to my portfolio. 👋</p>
+        <p>Hi, I'm <Link href="https://tomwright.io">Tom</Link>. Welcome to my portfolio. 👋</p>
         <p>
           I'm passionate about building innovative tech and applying cutting
           edge techniques to solve problems.{" "}
