@@ -4,7 +4,7 @@ import "./App.css";
 import { projects } from "./projects.ts";
 import type { ProjectData } from "./projects.ts";
 import React, { useState, useRef, useEffect } from "react";
-
+import { isMobile } from "react-device-detect";
 
 const cat = (...classes: string[]) => classes.join(" ");
 
@@ -37,6 +37,7 @@ function Project({ project }: { project: ProjectData }) {
   const activationDuration = 400;
   const activationTimeout = useRef<number | null>(null);
   const activate = () => {
+    setActive(true);
     setActivating(true);
 
     // clear existing timeout if any
@@ -51,8 +52,8 @@ function Project({ project }: { project: ProjectData }) {
     }, activationDuration); // 300ms - adjust to match your CSS transition
   }
 
-  const handleMouseEnter = () => { setActive(true); activate(); };
-  const handleMouseLeave = () => setActive(false);
+  const handleMouseEnter = () => { if (!isMobile) activate() };
+  const handleMouseLeave = () => { if (!isMobile) setActive(false) };
 
 
   // touch interactions
@@ -81,7 +82,7 @@ function Project({ project }: { project: ProjectData }) {
       const isSelf = selfRef.current && selfRef.current.contains(event.target as Node);
       if (!isSelf) setActive(false);
     };
-    
+
     // register listener
     document.addEventListener("click", handleClose);
 
