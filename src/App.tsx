@@ -4,38 +4,10 @@ import "./App.css";
 import { projects } from "./projects.ts";
 import type { ProjectData } from "./projects.ts";
 import React, { useState, useRef, useEffect } from "react";
-// import { isMobile } from 'react-device-detect';
 
 
 const cat = (...classes: string[]) => classes.join(" ");
 
-// function Description({ descr }: { descr: string }) {
-//   <div className={cl(
-//     // open ? "" : "hidden",
-//     "overflow-hidden",
-//     "absolute",
-//     // open ? "bg-white/100" : "bg-white/0",
-//     "bg-red-300",
-//     "backdrop-blur-[1px]",
-//     "-inset-x-1 -top-0",
-//     "p-2",
-//     "ring-1",
-//     open ? "ring-black/10" : "ring-transparent",
-//     "rounded-xl",
-//     // "z-10",
-//     // open ? 'max-h-[250px]' : 'max-h-16',
-//     open ? "opacity-100" : "opacity-0",
-//     "transition-all delay-100 duration-700"
-//   )}>
-//     <div className={cl(
-//       "mt-9",
-//       // open ? "opacity-100" : "opacity-0",
-//       // "transition-all duration-700"
-//     )}>
-//       {project.descr}
-//     </div>
-//   </div>
-// }
 
 function Tag({ name }: { name: string }) {
   return (
@@ -58,7 +30,6 @@ function Tag({ name }: { name: string }) {
 function Project({ project }: { project: ProjectData }) {
 
 
-  // const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);
   const [activating, setActivating] = useState(false);
 
@@ -85,50 +56,36 @@ function Project({ project }: { project: ProjectData }) {
 
 
   // touch interactions
-
-  // ref to self
-  const selfRef = useRef<HTMLAnchorElement>(null);
-
-  const handleTouch = (event: React.PointerEvent<HTMLAnchorElement>) => {
-    const pointerType = event.pointerType || (event.nativeEvent as PointerEvent).pointerType || "";
-    console.log(pointerType, active);
-
-
-    if (pointerType !== "mouse" && !active) {
-      // prevent link from opening
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // if inactive onclick, must be a non-mouse click
+    if (!active) {
+      // handle touch
       event.preventDefault();
-      // expand project, but only in onclick. Otherwise race condition, second trigger will open link
-      if (event.type === "onclick") setActive(true);
+      setActive(true);
     }
   }
-  // // touch interaction: tap to activate, tap again to open link
-  // const handleMobileClick = (event: React.PointerEvent<HTMLAnchorElement>) => {
 
-  //   const pointerType = (event.nativeEvent as PointerEvent).pointerType || "";
+  // close project when user clicks outside
 
-  //   if (pointerType !== "mouse" && !active) {
-  //     // prevent link from opening
-  //     event.preventDefault();
-  //     // expand project
-  //     setActive(true);
-  //   }
-  // }
+  // ref to check self click
+  const selfRef = useRef<HTMLAnchorElement>(null);
 
-  // // close project when user clicks elsewhere in document
+  // register external click listener upon 'active' change
   useEffect(() => {
-    // check mobile and active
+    // only register upon activation
     if (!active) return;
 
     // close on click (not run if self click - blocked by onclick)
     const handleClose = (event: MouseEvent | TouchEvent) => {
-
       // prevent self click from deactivating (in useEffect)
       const isSelf = selfRef.current && selfRef.current.contains(event.target as Node);
       if (!isSelf) setActive(false);
     };
+    
+    // register listener
     document.addEventListener("click", handleClose);
 
-    // cleanup
+    // cleanup: remove listener upon deactivation
     return () => document.removeEventListener("click", handleClose);
 
   }, [active])
@@ -136,7 +93,7 @@ function Project({ project }: { project: ProjectData }) {
   return (
 
     <a ref={selfRef} href={project.link} target="_blank" rel="noopener noreferrer" className={cat("group title-container relative",
-    ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleTouch} onPointerDown={handleTouch}>
+    ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
       <div className="flex gap-5 items-center">
         <h2 className={"title smooth"}>{project.name}</h2>
         <div className="text-primarylight"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-150 duration-200 ${active ? "translate-x-1 -translate-y-1 opacity-100" : "opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
