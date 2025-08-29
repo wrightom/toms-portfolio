@@ -52,6 +52,7 @@ function Project({ project }: { project: ProjectData }) {
     }, activationDuration); // 300ms - adjust to match your CSS transition
   }
 
+  // isMobile: On mobile, touch triggers mouseEnter and click
   const handleMouseEnter = () => { if (!isMobile) activate() };
   const handleMouseLeave = () => { if (!isMobile) setActive(false) };
 
@@ -151,8 +152,14 @@ function App() {
         </p>
       </div>
       <LinkIcons className="mt-3" />
-
-      <p className="projects-title mt-20">Check out some of the things I've been up to.</p>
+      <div className="projects-title mt-20">
+      <div className="relative flex py-5 items-center">
+        <div className="flex-grow border-t border-[var(--theme-blue)]"></div>
+        <span className="flex-shrink mx-4 text-gray-700">Projects</span>
+        <div className="flex-grow border-t border-[var(--theme-blue)]"></div>
+      </div>
+        <p>Click on the links below to find out more about what I've built.</p>
+      </div>
 
       <div className="projects-container flex flex-col gap-0 mt-5">
         {projects.map((project: ProjectData, index: number) => (
