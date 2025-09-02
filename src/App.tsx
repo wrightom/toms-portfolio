@@ -141,25 +141,28 @@ function App() {
       {/* </a> */}
       <div className="space-y-2">
         <p>Hi, I'm <Link href="https://tomwright.io">Tom</Link>. Welcome to my portfolio. 👋</p>
-        <p>
-          I'm passionate about building innovative tech and applying cutting
-          edge techniques to solve problems.{" "}
-        </p>
-        <p>
-          In 2023, I graduated from the University of Birmingham with a First-Class BSc Mathematics and an overall score of 81%.
-          The companies I have worked for include
-          {" "}<Link href="https://fiecon.com" newtab>FIECON</Link>,
-          {" "}<Link href="https://ample.earth" newtab>Ample</Link>, and
-          {" "}<Link href="https://ricardo.com" newtab>Ricardo</Link>.
-        </p>
+        <ul className="list-disc marker:text-[var(--theme-blue)] list-outside pl-8 [&>*]:pl-4">
+          <li>
+            I'm passionate about building innovative tech and applying cutting-edge techniques to solve problems.
+          </li>
+          <li>
+            I graduated in 2023 from the University of Birmingham with a First-Class BSc Mathematics and an overall score of 81%.
+          </li>
+          <li>
+            The companies I have worked for include
+            {" "}<Link href="https://fiecon.com" newtab>FIECON</Link>,
+            {" "}<Link href="https://ample.earth" newtab>Ample</Link>, and
+            {" "}<Link href="https://ricardo.com" newtab>Ricardo</Link>.
+          </li>
+        </ul>
       </div>
       <LinkIcons className="mt-3" />
       <div className="projects-title mt-20">
-      <div className="relative flex py-5 items-center">
-        <div className="border-t w-5 border-[var(--theme-blue)]"></div>
-        <span className="flex-shrink mx-4 text-gray-700">Projects</span>
-        <div className="flex-grow border-t border-[var(--theme-blue)]"></div>
-      </div>
+        <div className="relative flex py-5 items-center">
+          <div className="border-t w-5 border-[var(--theme-blue)]"></div>
+          <span className="flex-shrink mx-4 text-gray-700">Projects</span>
+          <div className="flex-grow border-t border-[var(--theme-blue)]"></div>
+        </div>
         <p>Click on the links below to find out more about what I've built.</p>
       </div>
 
