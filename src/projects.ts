@@ -10,9 +10,9 @@ export const projects: ProjectData[] = [
   {
     name: "FIECON Powerups",
     link: "https://www.linkedin.com/posts/tomnw_at-fiecon-were-using-technology-to-enhance-activity-7336734483787759616-WY3E?utm_source=share&utm_medium=member_desktop&rcm=ACoAABjc42YBPiUfkzVSPG36c0JHKBDtbn-Rj94",
-    linkDescr: "Demo video",
+    linkDescr: "View demo on LinkedIn",
     descr:
-      "I independently developed an OfficeJS Excel add-in featuring tools to automate our economic modelling process. The app was deployed across the organisation, saving £40K annually in efficiency gains and laying the foundation for future innovation.",
+      "I developed an OfficeJS Excel add-in featuring tools to automate our economic modelling process. The app was deployed across the organisation, saving £40K annually in efficiency gains and laying the foundation for future innovation.",
     tags: ["OfficeJS", "JS", "HTML", "Clarity Analytics", "Product Design"],
   },
   {
@@ -24,16 +24,31 @@ export const projects: ProjectData[] = [
   },
   {
     name: "Neural net dissertation",
-    link: "https://drive.google.com/file/d/1vHy7rvSqQRU3JVmmJXgndWkH3knlqRFU/view?usp=sharing",
-    linkDescr: "Read on Google Drive",
+    link: "https://github.com/wrightom/shallow-XOR",
+    linkDescr: "View on GitHub",
     descr:
       "Achieved first class for university dissertation on neural networks titled 'Deep Learning and its Applications', in which I derived the back-propogation algorithm from first principles, using this to train a shallow network to solve the XOR problem.",
-    tags: ["Python", "Neural Networks"],
+    tags: ["Uni", "Python", "Neural Networks"],
+  },
+  {
+    name: "Game development",
+    link: "https://github.com/wrightom/gamedev-archived",
+    linkDescr: "View on GitHub",
+    descr:
+      "A collection of all my old game development projects, including two published to Google Play store.",
+    tags: ["Game Dev", "Unity", "C#", "Blender", "3D"],
+  },
+  {
+    name: "Academic projects",
+    link: "https://github.com/wrightom/academic-projects",
+    linkDescr: "View on GitHub",
+    descr: "A collection of my academic projects from university and college.",
+    tags: ["Uni", "Python"],
   },
   {
     name: "RSA encryption",
     link: "https://github.com/tomnwright/rsa-encryption",
-    linkDescr: "View my code on GitHub",
+    linkDescr: "View on GitHub",
     descr:
       "A Python implementation of the RSA public key encryption algorithm. Part of theoretical paper on the mathematics of RSA submitted as part of IB Extended Essay.",
     tags: ["Python", "Cryptography"],
@@ -41,9 +56,42 @@ export const projects: ProjectData[] = [
   {
     name: "3D rendering engine",
     link: "https://github.com/tomnwright/renderia-engine",
-    linkDescr: "View my code on GitHub",
+    linkDescr: "View on GitHub",
     descr:
       "A Python Blender add-in implementing a custom orthographic rendering engine (renders 3D objects to image using camera position). Part of a theoretical paper on the mathematics of CGI submitted as part of IB maths.",
     tags: ["Python", "3D", "Blender"],
   },
+  {
+    name: "Mice problem video",
+    link: "https://youtu.be/r_V0pd0C318",
+    linkDescr: "Watch on YouTube",
+    descr:
+      "Worked in a group of 6 to produce a YouTube video about the Mice Problem in the context of robots on mars. Submitted as part of University of Birmingham Mathematical Modelling and Problems Solving module (2021). Edited video and produced all 3D graphics, alongside working on actual analysis.",
+    tags: ["Uni", "Blender", "Mathematics", "Video editing"],
+  },
+  {
+    name: "Board game question app",
+    link: "https://github.com/wrightom/uni-board-game-qs/",
+    linkDescr: "View on GitHub",
+    descr:
+      "Web app for generating trivia questions for Maths Degree - The Game That Counts - an educational mathematics board game for GCSE students. Submitted as part of University of Birmingham Mathematics in Industry module (2021).",
+    tags: ["Uni", "React"],
+  },
+  {
+    name: "RC plane",
+    link: "https://youtu.be/y_kS4XK1t14",
+    linkDescr: "Watch flight on YouTube",
+    descr:
+      "Designed and built a remote-controlled model plane from scratch. (Unfortunately I was less good at flying the thing.)",
+    tags: ["Engineering", "Electronics"],
+  },
 ];
+
+// {
+//   name: "Maths game site",
+//   link: "",
+//   linkDescr: "View on GitHub",
+//   descr:
+//     "",
+//   tags: [],
+// },
