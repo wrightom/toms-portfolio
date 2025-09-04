@@ -95,7 +95,7 @@ export default function LinkIcons({ className = "" }: { className?: string }) {
 
           </Link>
         </div>
-        <div>
+        {/* <div>
           <Link
             href="https://tomwright.io/cv"
             title="CV"
@@ -110,7 +110,7 @@ export default function LinkIcons({ className = "" }: { className?: string }) {
             </svg>
 
           </Link>
-        </div>
+        </div> */}
       </div>
 
       <ToastContainer />

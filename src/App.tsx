@@ -27,10 +27,10 @@ function Tag({ name }: { name: string }) {
 // }
 
 
-function Project({ project }: { project: ProjectData }) {
+function Project({ project, activeDefault = false }: { project: ProjectData, activeDefault?: boolean }) {
 
 
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(activeDefault);
   const [activating, setActivating] = useState(false);
 
   // desktop interactions
@@ -67,6 +67,8 @@ function Project({ project }: { project: ProjectData }) {
     }
   }
 
+  const onMouseOver = () => { if (!isMobile && !active) activate() };
+
   // close project when user clicks outside
 
   // ref to check self click
@@ -95,7 +97,7 @@ function Project({ project }: { project: ProjectData }) {
   return (
 
     <a ref={selfRef} href={project.link} title={project.linkDescr} target="_blank" rel="noopener noreferrer" className={cat("group title-container relative",
-    ) + (active || activating ? " active" : "")} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
+    ) + (active || activating ? " active" : "")} onMouseMove={onMouseOver} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
       <div className="flex gap-5 items-center">
         <h2 className={"title smooth"}>{project.name}</h2>
         <div className="text-primarylight"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-150 duration-200 ${active ? "translate-x-1 -translate-y-1 opacity-100" : "opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
@@ -116,10 +118,12 @@ function Project({ project }: { project: ProjectData }) {
         <p>{project.descr}</p>
       </div>
       <div className={cat(
-        active ? "ring-black/10 shadow-lg" : "ring-transparent",
-        active ? "opacity-100" : "opacity-0",
+        "ring-black/10",
+        // active ? "ring-black/10 shadow-lg" : "ring-transparent",
+        // active ? "opacity-100" : "opacity-0",
         "pointer-events-none",
-        "absolute -inset-4 -z-5",
+        "absolute -z-5",
+        active ? "-inset-4" : "-inset-2",
         "bg-white/80 backdrop-blur-[2px]",
         "ring-1 rounded-xl",
         "transition-all delay-0 group-hover:delay-300 duration-700",
@@ -166,9 +170,9 @@ function App() {
         <p>Click on the links below to find out more about what I've built.</p>
       </div>
 
-      <div className="projects-container flex flex-col gap-0 mt-5">
+      <div className="projects-container flex flex-col gap-5 mt-5">
         {projects.map((project: ProjectData, index: number) => (
-          <Project project={project} key={index} />
+          <Project project={project} key={index} activeDefault={index == 0} />
         ))}
       </div>
 
