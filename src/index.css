@@ -66,7 +66,7 @@ h2 {
     z-index:20;
 }
 
-.active .title, .hover-active.title:hover{
+.active .title, .hover-active.title:hover, .hover-parent:hover .child-active{
     color: var(--theme-blue);
     transform: translate(-6px, -6px);
     text-shadow: 10px 10px 0px rgb(0, 0, 0, 0.1);
