@@ -100,7 +100,7 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
       <img src={project.imgUrl || "https://picsum.photos/500/200"} alt="" className="w-full h-full object-cover" />
       <div className={cat("title-bar text-white min-h-15 w-full absolute flex justify-between items-center gap-1 bg-[var(--theme-blue)] backdrop-blur-xs px-3 py-1 top-full transition-all duration-500",(active || activating)?"-translate-y-full":"")}>
         <p>{project.name}</p>
-        <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-200 duration-400 ${active ? "opacity-100" : "-translate-x-2 translate-y-2s opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
+        <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-200 duration-400 ${active ? "opacity-100" : "-translate-x-2 translate-y-2 opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
       </div>
     </a >
   )
@@ -155,7 +155,7 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
         <LinkIcons className="mb-15" />
         {/* </a> */}
           <p>Hi, I'm <Link href="https://tomwright.io">Tom</Link>. Welcome to my portfolio. 👋</p>
-        <div className="space-y-2 flex sm:flex-row flex-col sm:gap-4 gap-1">
+        <div className="flex sm:flex-row flex-col gap-4 items-stretch">
        
             <Bullet>
               I'm passionate about building innovative tech and applying cutting-edge techniques to solve problems.
@@ -198,6 +198,6 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
 
 function Bullet({children}:{children:React.ReactNode}){
   return (
-    <div className="ring-1 ring-[var(--theme-blue)] p-5 rounded-xl">{children}</div>
+    <div className="smooth anim-card ring-1 ring-[var(--theme-blue)] p-5 rounded-xl">{children}</div>
   )
 }
