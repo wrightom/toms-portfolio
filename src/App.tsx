@@ -183,7 +183,7 @@ function App() {
       </div>
 
 
-      <div id="projects-container" className="grid sm:grid-cols-5 grid-cols-3 gap-2">
+      <div id="projects-container" className="grid sm:grid-cols-5 grid-cols-3 gap-5">
         {projects.map((project: ProjectData, index: number) => (
           <Project project={project} key={index} />
         ))}
