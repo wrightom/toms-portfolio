@@ -1,85 +1,91 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 body {
-    overflow-anchor:none
+  overflow-anchor: none;
 }
-
 
 h1 {
-    font-weight: 900;
-    font-size: 2.5rem;
-    color: var(--theme-gray);
+  font-weight: 900;
+  font-size: 2.5rem;
+  color: var(--theme-gray);
 }
-
 
 h2 {
-    font-weight: 900;
-    font-size: 1.5rem;
-    color: var(--theme-gray);
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--theme-gray);
 }
-
 
 :root {
-    --theme-gray: rgb(70, 70, 70);
-    --theme-orange: #ff8900;
-    --theme-cyan: #1dfffc;
-    --theme-purple: #5534e8;
-    --theme-blue: #11b1ff;
-    --theme-pink: #ffabb9;
+  --theme-gray: rgb(70, 70, 70);
+  --theme-orange: #ff8900;
+  --theme-cyan: #1dfffc;
+  --theme-purple: #5534e8;
+  --theme-blue: #11b1ff;
+  --theme-pink: #ffabb9;
 }
-
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer utilities {
-    .decoration-blue {
-        text-decoration-color: var(--theme-blue);
-    }
+  .decoration-blue {
+    text-decoration-color: var(--theme-blue);
+  }
 
-    .text-primarylight {
-        color: var(--theme-blue);
-    }
+  .text-primarylight {
+    color: var(--theme-blue);
+  }
 
-    .hover\:text-primarylight:hover {
-        color: var(--theme-blue);
-    }
+  .hover\:text-primarylight:hover {
+    color: var(--theme-blue);
+  }
 
-    .text-gray {
-        color: var(--theme-gray);
-    }
+  .text-gray {
+    color: var(--theme-gray);
+  }
 }
 
-
 .smooth {
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .title {
-    position: relative;
-    z-index: 2;
-    will-change:transform;
+  position: relative;
+  z-index: 2;
+  will-change: transform;
 }
 
 /* .active {
     z-index:20;
 } */
 
-.active .title, .hover-active.title:hover, .hover-parent:hover .child-active{
-    color: var(--theme-blue);
-    transform: translate(-6px, -6px);
-    text-shadow: 10px 10px 0px rgb(0, 0, 0, 0.1);
+.active .title,
+.hover-active.title:hover,
+.hover-parent:hover .child-active {
+  color: var(--theme-blue);
+  transform: translate(-6px, -6px);
+  text-shadow: 10px 10px 0px rgb(0, 0, 0, 0.1);
 }
-
 
 .anim-card:hover {
-    transition-delay: 200ms;
-    transform: translate(-6px, -6px) rotate(-1deg);
-    --tw-shadow: 10px 10px 0px rgb(0, 0, 0, 0.1); 
+  /* transition-delay: 200ms; */
+  transform: translate(-6px, -6px) rotate(-1deg);
+  --tw-shadow: 10px 10px 0px rgb(0, 0, 0, 0.1);
 }
 
-
+/* Keyframes for floating animation */
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translate(var(--start-x), var(--start-y)) scale(var(--start-s));
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
 
 /* .title::before {
     content: attr(data-text);

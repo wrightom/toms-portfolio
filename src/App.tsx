@@ -25,12 +25,78 @@ const cat = (...classes: string[]) => classes.join(" ");
 
 
 // }
+const ANIM_DIST = 100;
+
+function animateSquare(square:HTMLElement) {
+  if (!square.parentElement) {
+    throw new Error("Element has no parent container");
+  }
+
+  const divRect = square.getBoundingClientRect();
+  const parentRect = square.parentElement.getBoundingClientRect();
+
+  // Absolute center of div (on screen)
+  const centerX = divRect.left + divRect.width / 2;
+  const centerY = divRect.top + divRect.height / 2;
+
+  // Position relative to parent
+  const relativeX = (centerX - parentRect.left) / parentRect.width;
+  const relativeY = (centerY - parentRect.top) / parentRect.height;
 
 
+  // Calculate direction from square to top center
+  const directionX = relativeX - 0.5;
+  const directionY = 1 + relativeY;
+
+  // Normalize and apply random distance (15-50px)
+  const distance = ANIM_DIST * (1 + Math.random() * 2);
+  const length = Math.sqrt(directionX * directionX + directionY * directionY);
+  const normalizedX = length > 0 ? (directionX / length) * distance : 0;
+  const normalizedY = length > 0 ? (directionY / length) * distance : 0;
+
+  // Set initial position
+  square.style.setProperty('--start-x', `${normalizedX}px`);
+  square.style.setProperty('--start-y', `${normalizedY}px`);
+  square.style.setProperty('--start-s', `${1 + Math.random()}`);
+  // square.style.setProperty('--start-s', `${0.8}`);
+
+  // Random duration (0.6s to 1.2s)
+  const duration = 1 + Math.random() * 2;
+
+  // Apply the animation
+  square.style.animation = `floatIn ${duration}s cubic-bezier(0.4, 0, 0.2, 1) forwards`;
+}
 
 function Project({ project }: { project: ProjectData, activeDefault?: boolean }) {
 
+  // ref to check self click
+  const selfRef = useRef<HTMLAnchorElement>(null);
+  const floatRef = useRef<HTMLDivElement>(null);
 
+  // float in
+  useEffect(() => {
+    if (!floatRef.current) return;
+
+    const el = floatRef.current;
+    let hasAnimated = false;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            animateSquare(entry.target as HTMLElement);
+            hasAnimated = true;
+            observer.unobserve(entry.target); // stop watching once animated
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
 
   const [active, setActive] = useState(false);
   const [activating, setActivating] = useState(false);
@@ -73,9 +139,6 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
 
   // close project when user clicks outside
 
-  // ref to check self click
-  const selfRef = useRef<HTMLAnchorElement>(null);
-
   // register external click listener upon 'active' change
   useEffect(() => {
     // only register upon activation
@@ -96,6 +159,7 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
 
   }, [active])
   return (
+    <div ref={floatRef} className="opacity-0 flex">
     <a className="smooth anim-card relative group aspect-square rounded-xl overflow-hidden ring-1 ring-black/10" ref={selfRef} href={project.link} title={project.linkDescr} target="_blank" rel="noopener noreferrer" onMouseMove={onMouseOver} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
       <img src={project.imgUrl || "https://picsum.photos/500/200"} alt="" className="w-full h-full object-cover" />
       <div className={cat("title-bar z-200 text-white min-h-15 w-full absolute flex justify-between items-center gap-1 bg-[var(--theme-blue)] px-3 py-1 top-full transition-all duration-500", (active || activating) ? "-translate-y-full" : "")}>
@@ -103,6 +167,7 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
         <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-200 duration-400 ${active ? "opacity-100" : "-translate-x-2 translate-y-2 opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
       </div>
     </a >
+    </div>
   )
   // return (
 
@@ -183,7 +248,7 @@ function App() {
       </div>
 
 
-      <div id="projects-container" className="grid sm:grid-cols-5 grid-cols-3 gap-5">
+      <div id="projects-container" className="grid md:grid-cols-5 grid-cols-3 sm:gap-5 gap-2">
         {projects.map((project: ProjectData, index: number) => (
           <Project project={project} key={index} />
         ))}
