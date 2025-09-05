@@ -96,9 +96,9 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
 
   }, [active])
   return (
-    <a className="relative group aspect-square rounded-xl overflow-hidden ring-1 ring-black/10" ref={selfRef} href={project.link} title={project.linkDescr} target="_blank" rel="noopener noreferrer" onMouseMove={onMouseOver} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
+    <a className="smooth anim-card relative group aspect-square rounded-xl overflow-hidden ring-1 ring-black/10" ref={selfRef} href={project.link} title={project.linkDescr} target="_blank" rel="noopener noreferrer" onMouseMove={onMouseOver} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
       <img src={project.imgUrl || "https://picsum.photos/500/200"} alt="" className="w-full h-full object-cover" />
-      <div className={cat("title-bar text-white min-h-15 w-full absolute flex justify-between items-center gap-1 bg-[var(--theme-blue)] backdrop-blur-xs px-3 py-1 top-full transition-all duration-500", (active || activating) ? "-translate-y-full" : "")}>
+      <div className={cat("title-bar z-200 text-white min-h-15 w-full absolute flex justify-between items-center gap-1 bg-[var(--theme-blue)] px-3 py-1 top-full transition-all duration-500", (active || activating) ? "-translate-y-full" : "")}>
         <p>{project.name}</p>
         <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`h-6 w-6 transition-all delay-200 duration-400 ${active ? "opacity-100" : "-translate-x-2 translate-y-2 opacity-0"}`}><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></div>
       </div>
@@ -153,7 +153,7 @@ function App() {
       {/* <a href="https://tomwright.io"> */}
       <div className="hover-parent mb-10 pt-15">
         <h1 className="-ml-1 mb-2 title smooth child-active">Tom Wright</h1>
-        <LinkIcons className="mb-5"/>
+        <LinkIcons className="mb-5" />
       </div>
       {/* </a> */}
       <p>Hi, I'm <Link href="https://tomwright.io">Tom</Link>. Welcome to my portfolio. 👋</p>
