@@ -26,6 +26,8 @@ const cat = (...classes: string[]) => classes.join(" ");
 
 // }
 
+
+
 function Project({ project }: { project: ProjectData, activeDefault?: boolean }) {
 
 
@@ -149,27 +151,27 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
       // Tailwind: centers the container horizontally (mx-auto), sets different maximum widths for various screen sizes (max-w-2xl, sm:max-w-3xl, md:max-w-4xl), and adds top and bottom padding that increases on medium screens (pt-28 pb-20 md:pt-32)
       <div className="content mx-auto max-w-2xl pt-28 pb-20 sm:max-w-3xl md:max-w-4xl md:pt-32 px-6 flex flex-col gap-3">
         {/* <a href="https://tomwright.io"> */}
-        <h1 className="title smooth hover-active"><div className="absolute -inset-5"></div>Tom Wright</h1>
+        <h1 className="-ml-1 title smooth hover-active"><div className="absolute -inset-5"></div>Tom Wright</h1>
+        <LinkIcons className="mb-15" />
         {/* </a> */}
-        <div className="space-y-2">
           <p>Hi, I'm <Link href="https://tomwright.io">Tom</Link>. Welcome to my portfolio. 👋</p>
-          <ul className="list-disc marker:text-[var(--theme-blue)] list-outside pl-8 [&>*]:pl-4">
-            <li>
+        <div className="space-y-2 flex sm:flex-row flex-col sm:gap-4 gap-1">
+       
+            <Bullet>
               I'm passionate about building innovative tech and applying cutting-edge techniques to solve problems.
-            </li>
-            <li>
+            </Bullet>
+            <Bullet>
               I graduated in 2023 from the University of Birmingham with a First-Class BSc Mathematics and an overall score of 81%.
-            </li>
-            <li>
+            </Bullet>
+            <Bullet>
               The companies I have worked for include
               {" "}<Link href="https://fiecon.com" newtab>FIECON</Link>,
               {" "}<Link href="https://ample.earth" newtab>Ample</Link>, and
               {" "}<Link href="https://ricardo.com" newtab>Ricardo</Link>.
-            </li>
-          </ul>
+            </Bullet>
+
         </div>
-        <LinkIcons className="mt-3" />
-        <div className="projects-title mt-20">
+        <div className="projects-title mt-15">
           <div className="relative flex py-5 items-center">
             <div className="border-t w-5 border-[var(--theme-blue)]"></div>
             <span className="flex-shrink mx-4 text-gray-700">Projects</span>
@@ -192,3 +194,10 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
   }
 
   export default App;
+
+
+function Bullet({children}:{children:React.ReactNode}){
+  return (
+    <div className="ring-1 ring-[var(--theme-blue)] p-5 rounded-xl">{children}</div>
+  )
+}
