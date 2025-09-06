@@ -223,7 +223,7 @@ function App() {
       <div className="content mx-auto max-w-2xl pt-28 pb-20 sm:max-w-3xl md:max-w-4xl md:pt-15 px-6 flex flex-col gap-3">
         {/* <a href="https://tomwright.io"> */}
         <div className="hover-parent mb-10 pt-15 flex items-stretch gap-10 flex-wrap">
-          <img className="h-30 " src="favicon.svg"></img>
+          <img className="h-30 " src="logo.svg"></img>
           <div>
             <h1 className="-ml-1 mb-2 title smooth child-active">Tom Wright</h1>
             <LinkIcons className="mb-5" />
