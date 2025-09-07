@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react"
 
-export default function Link({ children, href, newtab = false, ...props }: { children: ReactNode, href: string, newtab?: boolean } & AnchorHTMLAttributes<HTMLAnchorElement>) {
+export default function LinkTo({ children, href, newtab = false, ...props }: { children: ReactNode, href: string, newtab?: boolean } & AnchorHTMLAttributes<HTMLAnchorElement>) {
 
   const linkProps = newtab ? { target: "_blank", rel: "noopener noreferrer" } : {};
 

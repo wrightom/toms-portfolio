@@ -1,10 +1,11 @@
-import Link from "./components/Link.tsx";
+import LinkTo from "./components/LinkTo.tsx";
 import LinkIcons from "./components/LinkIcons";
 import "./App.css";
 import { projects } from "./projects.ts";
 import type { ProjectData } from "./projects.ts";
 import React, { useState, useRef, useEffect } from "react";
 import { isMobile } from "react-device-detect";
+import { Link, useLocation, BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 const cat = (...classes: string[]) => classes.join(" ");
 
@@ -165,7 +166,7 @@ function Project({ project }: { project: ProjectData, activeDefault?: boolean })
   }, [active])
   return (
     <div ref={floatRef} className="opacity-0 flex">
-      <a className="smooth anim-card relative group aspect-square rounded-xl overflow-hidden ring-1 ring-black/10" ref={selfRef} href={project.link} title={project.linkDescr} target="_blank" rel="noopener noreferrer" onMouseMove={onMouseOver} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
+      <a className={`smooth ${active || activating ? "anim-active" : ""} relative group aspect-square rounded-xl overflow-hidden ring-1 ring-black/10`} ref={selfRef} href={project.link} title={project.linkDescr} target="_blank" rel="noopener noreferrer" onMouseMove={onMouseOver} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
         <img src={project.imgUrl || "https://picsum.photos/500/200"} alt="" className="w-full h-full object-cover" />
         <div className={cat("title-bar z-200 text-white min-h-15 w-full absolute flex justify-between items-center gap-1 bg-[var(--theme-blue)] px-3 py-1 top-full transition-all duration-500", (active || activating) ? "-translate-y-full" : "")}>
           <p>{project.name}</p>
@@ -219,7 +220,7 @@ function App() {
 
   return (
     <div className="overflow-clip">
-    {/* // Tailwind: centers the container horizontally (mx-auto), sets different maximum widths for various screen sizes (max-w-2xl, sm:max-w-3xl, md:max-w-4xl), and adds top and bottom padding that increases on medium screens (pt-28 pb-20 md:pt-32) */}
+      {/* // Tailwind: centers the container horizontally (mx-auto), sets different maximum widths for various screen sizes (max-w-2xl, sm:max-w-3xl, md:max-w-4xl), and adds top and bottom padding that increases on medium screens (pt-28 pb-20 md:pt-32) */}
       <div className="content mx-auto max-w-2xl pt-28 pb-20 sm:max-w-3xl md:max-w-4xl md:pt-15 px-6 flex flex-col gap-3">
         {/* <a href="https://tomwright.io"> */}
         <div className="hover-parent mb-10 pt-15 flex items-stretch gap-10 flex-wrap">
@@ -230,7 +231,7 @@ function App() {
           </div>
         </div>
         {/* </a> */}
-        <p>Hi, I'm <Link href="https://tomwright.io">Tom</Link>. Welcome to my portfolio. 👋</p>
+        <p>Hi, I'm <LinkTo href="https://tomwright.io">Tom</LinkTo>. Welcome to my portfolio. 👋</p>
         <div className="flex sm:flex-row flex-col gap-4 items-stretch">
 
           <Bullet>
@@ -241,29 +242,16 @@ function App() {
           </Bullet>
           <Bullet>
             The companies I have worked for include
-            {" "}<Link href="https://fiecon.com" newtab>FIECON</Link>,
-            {" "}<Link href="https://ample.earth" newtab>Ample</Link>, and
-            {" "}<Link href="https://ricardo.com" newtab>Ricardo</Link>.
+            {" "}<LinkTo href="https://fiecon.com" newtab>FIECON</LinkTo>,
+            {" "}<LinkTo href="https://ample.earth" newtab>Ample</LinkTo>, and
+            {" "}<LinkTo href="https://ricardo.com" newtab>Ricardo</LinkTo>.
           </Bullet>
 
         </div>
-        <div className="projects-title mt-15">
-          <div className="relative flex py-5 items-center">
-            <div className="border-t w-5 border-[var(--theme-blue)]"></div>
-            <span className="flex-shrink mx-4 text-gray-700">Projects</span>
-            <div className="flex-grow border-t border-[var(--theme-blue)]"></div>
-          </div>
-          <p>Click on the links below to find out more about what I've built.</p>
-        </div>
+        <Router>
 
-
-        <div id="projects-container" className="grid md:grid-cols-5 grid-cols-3 sm:gap-5 gap-2">
-          {projects.map((project: ProjectData, index: number) => (
-            <Project project={project} key={index} />
-          ))}
-        </div>
-
-
+          <ContentRouter />
+        </Router>
         <div className="mt-30"></div>
       </div>
     </div>
@@ -277,4 +265,70 @@ function Bullet({ children }: { children: React.ReactNode }) {
   return (
     <div className="smooth anim-card ring-1 ring-[var(--theme-blue)] p-5 rounded-xl">{children}</div>
   )
+}
+
+
+function ContentRouter() {
+
+
+  const location = useLocation();
+
+  const routerClass = (target: string) => "relative mx-1 px-1 py-0.5 rounded-sm transition-all duration-400" + (location.pathname === target ? " text-white bg-[var(--theme-blue)]" : " hover:bg-gray-100");
+
+  return (
+    <>
+      <div className="projects-title mt-15">
+        <div className="relative flex py-5 items-center">
+          <div className="border-t w-5 border-[var(--theme-blue)]"></div>
+          <span className="flex-shrink mx-4 text-gray-700 text-lg">
+            <Link to="/projects" className={routerClass("/projects")}>
+              Projects
+              <div className="absolute -inset-x-2 -inset-y-3 sm:inset-0"></div>
+            </Link>
+            {" / "}
+            <Link to="/wilt" className={routerClass("/wilt")}>
+              Blog
+              <div className="absolute -inset-x-2 -inset-y-3 sm:inset-0"></div>
+            </Link>
+          </span>
+          <div className="flex-grow border-t border-[var(--theme-blue)]"></div>
+        </div>
+      </div>
+
+      <Routes>
+
+        <Route path="/" element={<Navigate to="/projects" replace />} />
+        <Route path="/projects" element={<ProjectsContent />} />
+        <Route path="/wilt" element={<WiltContent />} />
+      </Routes>
+
+    </>
+
+  )
+}
+
+function ProjectsContent() {
+  return (
+    <>
+      <p>Click on the links below to find out more about what I've built.</p>
+
+      <div id="projects-container" className="grid md:grid-cols-5 grid-cols-3 sm:gap-5 gap-2">
+        {projects.map((project: ProjectData, index: number) => (
+          <Project project={project} key={index} />
+        ))}
+      </div>
+    </>
+  );
+}
+function WiltContent() {
+  return (
+    <>
+      <div className= "hover-parent mx-auto relative">
+
+      <h2 className="title smooth child-active tracking-widest">WILT
+      </h2>
+      </div>
+      <p>What I learned today... Coming soon.</p>
+    </>
+  );
 }
