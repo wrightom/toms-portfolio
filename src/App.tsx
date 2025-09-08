@@ -332,7 +332,7 @@ function ProjectsContent() {
 function WiltContent() {
   return (
     <>
-      <div title="What I learned today..." className="hover-parent cursor-pointer flex gap-10 bg-gray-100/50 rounded-lg ring-1 ring-black/10 pl-2 items-center justify-between">
+      <div title="What I learned today..." className="hover-parent cursor-pointer flex gap-10 bg-gray-100/50 rounded-lg ring-1 ring-black/10 pl-2 justify-between items-stretch">
 
         <div className="relative">
           <h2 className="title smooth child-active tracking-widest">WILT
@@ -342,10 +342,10 @@ function WiltContent() {
         <span className="my-2 hidden sm:inline">An open-source framework for daily learning</span>
 
         <div className="flex items-center gap-1 hover:bg-black/5 py-1 px-2 rounded-lg transition-all duration-300">
-          <svg className="h-8 text-primarylight" viewBox="5 -5 90 110" fill="currentColor">
+          <svg className="h-6 text-primarylight" viewBox="5 -5 90 115" fill="currentColor">
             <path d="m74.957 45.871c0.53516-0.76953 0.84375-1.1172 1.043-1.5156 0.54688-1.082 1.0469-2.1914 1.5625-3.2852 0.625-1.3242 1.1602-2.7852 2.9531-2.8438 1.9297-0.0625 3.3086 1.0078 4.0039 2.6562 1.3164 3.1211 2.6641 6.2656 3.5625 9.5195 2.293 8.3203 2.7891 16.738 0.51953 25.18-2.8789 10.715-9.5859 18.344-19.176 23.605-1.1992 0.65625-2.457 1.1875-3.9062 0.48828-1.7852-0.85938-2.5156-2.2695-1.8672-4.1484 0.31641-0.90625 0.77344-1.7812 1.2695-2.6094 2.832-4.7305 2.3203-9.2578-0.80078-13.613-0.98828-1.3789-2.082-2.6875-3.1797-3.9844-4.9727-5.8594-6.6133-12.652-5.6758-20.16 0.125-0.99609 0.38672-1.9102-0.65625-2.5859-0.95703-0.625-1.832-0.38281-2.7344 0.10938-8.0781 4.4414-14.184 10.699-17.527 19.383-0.68359 1.7734-0.99609 3.7539-1.1406 5.6641-0.41016 5.4648 0.089844 10.832 2.332 15.926 0.066407 0.14844 0.12891 0.29688 0.17578 0.45312 0.69531 2.1602 0.33984 3.7188-1.0977 4.8164-1.3711 1.0469-2.8516 1.0195-4.7188-0.20312-1.4219-0.92969-2.8008-1.9258-4.1719-2.9258-5.1641-3.7773-9.6211-8.2031-12.379-14.07-5.3789-11.449-4.3359-22.449 2.5508-32.957 2.9883-4.5586 6.8906-8.3555 10.484-12.41 2.6211-2.9609 5.2617-5.9492 7.5039-9.1953 3.8828-5.625 5.5547-11.984 5.2695-18.836-0.066406-1.6172-0.12109-3.2422-0.03125-4.8555 0.14453-2.5742 2.332-4.0469 4.7695-3.2422 0.76172 0.25 1.4961 0.62891 2.1836 1.0469 13.426 8.1719 22.348 19.926 27.293 34.734 0.80859 2.4141 0.89844 5.0703 1.3086 7.6172 0.09375 0.59375 0.14453 1.1953 0.27344 2.25z" />
           </svg>
-          <div className="rounded-full ring-1 ring-[var(--theme-blue)] h-6 aspect-square inline-flex items-center justify-center text-bold">3</div>
+          <div className="rounded-full ring-1 ring-[var(--theme-blue)] h-5 aspect-square inline-flex items-center justify-center text-bold">3</div>
         </div>
       </div>
 
@@ -355,10 +355,57 @@ function WiltContent() {
           <Post data={post} key={index} />
         ))}
       </div>
+
+
+      <CodeEnv />
+
     </>
   );
 }
 
+
+function CodeEnv({ title = "Code.py", language = "", code = "" }) {
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const loadCode = () => {
+    if (!iframeRef.current) return;
+
+    const message = {
+      eventType: 'populateCode',
+      language: language || "python",
+      files: [
+        {
+          "name": title,
+          "content": code || "print('Code here!')"
+        }
+      ]
+    };
+    console.log("Posting message to iframe:", message);
+    iframeRef.current.contentWindow?.postMessage(message, "https://onecompiler.com");
+  };
+
+  const oc_flags = [
+    "listenToEvents",
+    "hideLanguageSelection",
+    "hideNew",
+    "hideTitle",
+    "hideNewFileOption",
+    "hideEditorOptions"
+  ].map((flag) => `${flag}=true`).join("&");
+
+  return (
+    <div>
+      <p>Code demo</p>
+      <iframe
+        ref={iframeRef}
+        height="750px"
+        src={`https://onecompiler.com/embed?${oc_flags}`}
+        width="100%"
+        onLoad={loadCode}
+      ></iframe>
+    </div>
+  );
+}
 
 
 function Post({ data }: { data: PostData }) {
